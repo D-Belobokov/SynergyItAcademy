@@ -10,6 +10,8 @@ public class Main {
        fibo[1] = 1;
         System.out.println("числа фибоначи");
         System.out.println("**************");
+        System.out.print(fibo[0] + " ");
+        System.out.print(fibo[1] + " ");
         for(int i = 2; i < fibo.length; i++ ){
             fibo[i] = fibo[i -1] + fibo[i - 2];
             System.out.print(fibo[i] + " ");
