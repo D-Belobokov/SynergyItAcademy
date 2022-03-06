@@ -9,11 +9,8 @@
         <module name="SynergyItAcademy" />
       </profile>
     </annotationProcessing>
-<<<<<<< HEAD
-=======
     <bytecodeTargetLevel>
       <module name="SynergyItAcademy" target="17" />
     </bytecodeTargetLevel>
->>>>>>> origin/master
   </component>
 </project>
