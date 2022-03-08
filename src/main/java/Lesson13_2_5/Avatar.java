@@ -3,21 +3,24 @@ package Lesson13_2_5;
 import java.math.BigDecimal;
 
 public class Avatar {
-    String fio;
-    BigDecimal score = BigDecimal.valueOf(0);
+    public final String fio;
+    private BigDecimal score = BigDecimal.valueOf(0.0);
 
-    public Avatar(){
+    public Avatar(String fio){
         this.fio = fio;
         this.score = score;
     }
-
-    public Avatar(String fio,BigDecimal score){
-        this.fio = fio;
-        this.score = score;
-    }
-     public BigDecimal insite(BigDecimal v){
-             score = score.add(v);
+     BigDecimal topUp(BigDecimal size){            // пополнить счет
+         score = score.add(size);
          System.out.println(" на вашем счете " + score);
          return score;
+     }
+     public BigDecimal takeOff(BigDecimal size){
+         score = score.subtract(size);
+         System.out.println(" на вашем счете " + score);
+         return score;
+     }
+     public void print(){
+         System.out.println(score);
      }
 }
