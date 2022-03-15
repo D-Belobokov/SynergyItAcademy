@@ -10,34 +10,40 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Avatar avatar = new Avatar("Вася");
-        System.out.println(" симулятор банкомата. работаем со счетом васи ");
-        while (true){
+        System.out.println(" симулятор банкомата ");
+        while (true) {
             System.out.println(" выберите действие:информация о счете-'prt' пополнить счет-'up' - снять деньги-'off' выход-'exit'");
             try {
+                // ниже получаем private поле "score" и записываем в переменную "fieldScore"
                 Field fieldScore = avatar.getClass().getDeclaredField("score");
+                // разрешаем к нему доступ
                 fieldScore.setAccessible(true);
                 Scanner scanner = new Scanner(System.in);
                 String operation = scanner.nextLine();
-                if (operation.equals("exit")){
+                if (operation.equals("exit")) {
                     break;
                 }
-                if(operation.equals("prt")){
+                if (operation.equals("prt")) {
                     avatar.print();
                 }
-                if (operation.equals("up")){
-                    System.out.println(" введите сумму для пополнеия ");
-                    Method methodUp = avatar.getClass().getDeclaredMethod("topUp");
+                if (operation.equals("up")) {
+                    //ниже получаем private метод
+                    Method methodUp = avatar.getClass().getDeclaredMethod("topUp", BigDecimal.class);
                     methodUp.setAccessible(true);
-                    methodUp.invoke(avatar);
-                   String vUp = scanner.nextLine();
-                   BigDecimal valueUp = new BigDecimal(vUp);
-                  avatar.topUp(valueUp);
+                    System.out.println(" введите сумму для пополнеия ");
+                    String cashUp = scanner.nextLine();
+                    BigDecimal upp = new BigDecimal(cashUp);
+                    // ниже применяем метод invoke на полученном private методе "topUp"
+                    methodUp.invoke(avatar, upp);
+
                 }
-                if(operation.equals("off")){
+                if (operation.equals("off")) {
+                    Method methodOff = avatar.getClass().getDeclaredMethod("takeOff", BigDecimal.class);
+                    methodOff.setAccessible(true);
                     System.out.println("введите сумму для снятия");
                     String vOff = scanner.nextLine();
-                   BigDecimal valueOff = new BigDecimal(vOff);
-                   avatar.takeOff(valueOff);
+                    BigDecimal of = new BigDecimal(vOff);
+                    methodOff.invoke(avatar, of);
                 }
             } catch (NoSuchFieldException e) {
                 e.printStackTrace();
@@ -49,5 +55,7 @@ public class Main {
                 e.printStackTrace();
             }
         }
+        avatar.print();
+        System.out.println("Досвидания!");
     }
 }
