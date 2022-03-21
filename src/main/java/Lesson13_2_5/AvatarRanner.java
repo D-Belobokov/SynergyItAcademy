@@ -1,13 +1,21 @@
 package Lesson13_2_5;
 
 
+import Lesson13_2_5.Inerface.AvatarInterface;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.math.BigDecimal;
 import java.util.Scanner;
 
-public class Main {
+/**
+ * @author Dmitry Belobokov
+ * @version 1.0
+ * Class for reflection and anatation
+ */
+public class AvatarRanner {
     public static void main(String[] args) {
         Avatar avatar = new Avatar("Вася");
         System.out.println(" симулятор банкомата ");
@@ -15,6 +23,9 @@ public class Main {
             System.out.println(" выберите действие:информация о счете-'prt' пополнить счет-'up' - снять деньги-'off' выход-'exit'");
             try {
                 // ниже получаем private поле "score" и записываем в переменную "fieldScore"
+                /**
+                 * @param fieldScore get private field class Avatar
+                 */
                 Field fieldScore = avatar.getClass().getDeclaredField("score");
                 // разрешаем к нему доступ
                 fieldScore.setAccessible(true);
@@ -29,7 +40,12 @@ public class Main {
                 if (operation.equals("up")) {
                     //ниже получаем private метод
                     Method methodUp = avatar.getClass().getDeclaredMethod("topUp", BigDecimal.class);
-                    methodUp.setAccessible(true);
+                    //ищем есть ли аннотация Blocked на методе?
+                    if (methodUp.isAnnotationPresent(Blocked.class)) {
+                        System.out.println(Blocked.massage);
+                        methodUp.setAccessible(false);//блокируем операцию
+                        return;
+                    }
                     System.out.println(" введите сумму для пополнеия ");
                     String cashUp = scanner.nextLine();
                     BigDecimal upp = new BigDecimal(cashUp);
@@ -38,12 +54,14 @@ public class Main {
 
                 }
                 if (operation.equals("off")) {
-                    Method methodOff = avatar.getClass().getDeclaredMethod("takeOff", BigDecimal.class);
-                    methodOff.setAccessible(true);
+                    Class[] interfaces = avatar.getClass().getInterfaces();
+                    ClassLoader classLoaderAvatar = avatar.getClass().getClassLoader();
+                    AvatarInterface proxyAvatar = (AvatarInterface) Proxy.newProxyInstance(classLoaderAvatar,
+                            interfaces, new AvatarInvocationHandler(avatar));
                     System.out.println("введите сумму для снятия");
                     String vOff = scanner.nextLine();
                     BigDecimal of = new BigDecimal(vOff);
-                    methodOff.invoke(avatar, of);
+                    proxyAvatar.takeOff(of);
                 }
             } catch (NoSuchFieldException e) {
                 e.printStackTrace();
