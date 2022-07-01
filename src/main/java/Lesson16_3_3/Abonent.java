@@ -1,12 +1,13 @@
 package Lesson16_3_3;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class Abonent {
     String name;
     long number;
-    ArrayList<Abonent> friends = new ArrayList<>();
+    List listFriends;//список связанных контактов
     String[] nameArr = {"Вася", "Петя", "Ваня", "Дима", "Коля", "Саша", "Слава", "Костя", "Андрей", "Паша"};
     String[] lastnameArr = {"Иванов", "Петров", "Сидоров", "Круглов", "Хазанов", "Жванецкий", "Задорнов", "Кроликов",
             "Маменко", "Рабинович"};
@@ -19,17 +20,16 @@ public class Abonent {
         long upperBound = 9319999999l;
         this.name = nameArr[x] + " " + lastnameArr[y];
         this.number = new Random().nextInt((int) (upperBound - lowerBound)) + lowerBound;
-        int z = random.nextInt((int) TelephoneBook.capacityBook);
-        for (int j = 0; j < 150; j ++){
-        }
+        this.listFriends = new ArrayList();
     }
 
     @Override
     public String toString() {
-        return " Abonent{" +
-                "'name' = " + name + '\'' +
-                ", number = " + number +
-                '}' +
-                '\n';
+        return "Abonent{" +
+                "name='" + name + '\'' +
+                ", number=" + number +
+                ", listFriends=" + listFriends +
+                "\n" +
+                '}';
     }
 }

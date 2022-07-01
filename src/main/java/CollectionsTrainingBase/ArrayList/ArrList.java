@@ -25,5 +25,11 @@ public class ArrList {
         Comparator unitComparatorId = new UnitComparatorID();
         Collections.sort(unitList, unitComparatorId);
         System.out.println(unitList);
+
+        Unit unitSecond = unitList.get(2);
+        unitSecond.setId(453);
+        unitList.set(2,unitSecond);
+        System.out.println(unitList);
+
     }
 }

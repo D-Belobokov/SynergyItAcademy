@@ -1,7 +1,9 @@
 package CollectionsTrainingBase.ArrayList;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 /*связанный список*/
 
 public class LinkedListRunner {
@@ -19,5 +21,8 @@ public class LinkedListRunner {
         earlBio.add(str4);
         earlBio.add(0,str5);
         System.out.println(earlBio);
+
+        Set<String>stringSet = new HashSet<>(earlBio);
+        System.out.println(" помещаем LinkedList в HashSet для сортировки " + stringSet);
     }
 }

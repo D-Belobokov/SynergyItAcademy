@@ -31,6 +31,5 @@ public class SetRunner {
         unitTreeSet.addAll(hashSetUnit);
         System.out.println(" сортируем перемещением в treeSet " + "\n" + unitTreeSet);
 
-
     }
 }
