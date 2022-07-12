@@ -2,6 +2,9 @@ package Lesson16_3_3;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class TelephoneBookRunner {
     public static void main(String[] args) throws InterruptedException {
@@ -9,10 +12,30 @@ public class TelephoneBookRunner {
         //работаем с массивом
        // Instant startArr = Instant.now();
        bookPhone1.addList();
-       Abonent secondAbonent = (Abonent) bookPhone1.list.get(10);
-       secondAbonent.listFriends.add(0, bookPhone1.list.get(12));
-        System.out.println(bookPhone1);
-        //System.out.println(bookPhone1.list.get(2));
+        Iterator iteratorList = bookPhone1.list.iterator();
+        while (iteratorList.hasNext()){
+            System.out.println(iteratorList.next());
+        }
+        /*
+        Abonent temp = (Abonent) bookPhone1.list.get(2);
+        System.out.println(" temp = " + temp);
+        temp.listFriends.add(bookPhone1.list.get(5));
+        System.out.println(" temp modify " + temp);
+        bookPhone1.list.add(2,temp);
+        System.out.println("bookfone.2 " + bookPhone1.list.get(2));
+
+         */
+
+
+
+
+
+
+
+
+
+
+
 
 
 

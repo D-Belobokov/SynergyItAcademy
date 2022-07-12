@@ -3,11 +3,16 @@ package Lesson16_3_3;
 import java.util.*;
 
 public class BookPhone {
-    final static int bookSize = 100;
-    Abonent[]bookArr;
+   final static int bookSize = 100;
+   Abonent[]bookArr;
    List list;
    Set set;
    Map map;
+
+   BookPhone(){
+       this.list = new ArrayList<Abonent>();
+   }
+
 
    void addArr(){
         bookArr = new Abonent[bookSize];
@@ -18,15 +23,20 @@ public class BookPhone {
 
     void addList(){
        list = new ArrayList<>();
-
        for (int i = 0; i < bookSize;i ++){
            list.add(new Abonent());
            }
-       for (int j = 0; j < bookSize; j ++){
-            Random random = new Random();
-            int rf = random.nextInt(bookSize);
+       for (int j = 0;j < bookSize;j ++){
+           Random random = new Random();
+           int rx = random.nextInt(bookSize);
+           Abonent tempAbonent = (Abonent) list.get(j);
+           tempAbonent.listFriends.add(0,list.get(rx));
+           tempAbonent.listFriends.add(1,list.get(rx));
+           tempAbonent.listFriends.add(2,list.get(rx));
+           tempAbonent.listFriends.add(3,list.get(rx));
+           tempAbonent.listFriends.add(4,list.get(rx));
 
-           }
+       }
        }
 
 
