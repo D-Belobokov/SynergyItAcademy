@@ -1,4 +1,4 @@
-package CollectionsTrainingBase.Set;
+package CollectionsTrainingBase.Set.Hash_Tree;
 
 import CollectionsTrainingBase.ArrayList.Unit;
 
@@ -23,10 +23,11 @@ public class SetRunner {
 
         //преобразуем в list для сортировки
 
-        List<Unit>listhashSet = new ArrayList<Unit>(hashSetUnit);
+        List<Unit>listhashSet = new ArrayList<>(hashSetUnit);
         Collections.sort(listhashSet);
         System.out.println("после сортировки");
         System.out.println(listhashSet);
+        //прокидываем в TreeSet, там автоматически отсортируется
         TreeSet<Unit>unitTreeSet = new TreeSet<>();
         unitTreeSet.addAll(hashSetUnit);
         System.out.println(" сортируем перемещением в treeSet " + "\n" + unitTreeSet);

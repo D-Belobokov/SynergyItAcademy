@@ -7,13 +7,11 @@ import java.util.Random;
 public class Abonent {
     String name;
     long number;
-    List listFriends;//список связанных контактов
-
+    List listFriends = new ArrayList<>(5);//список связанных контактов
 
         String[] nameArr = {"Вася", "Петя", "Ваня", "Дима", "Коля", "Саша", "Слава", "Костя", "Андрей", "Паша"};
         String[] lastnameArr = {"Иванов", "Петров", "Сидоров", "Круглов", "Хазанов", "Жванецкий", "Задорнов", "Кроликов",
                 "Маменко", "Рабинович"};
-
 
     public Abonent(){
         Random random = new Random();
@@ -23,7 +21,7 @@ public class Abonent {
         long upperBound = 9319999999l;
         this.name = nameArr[x] + " " + lastnameArr[y];
         this.number = new Random().nextInt((int) (upperBound - lowerBound)) + lowerBound;
-        this.listFriends = new ArrayList<Abonent>(5);
+        this.listFriends = new ArrayList<Abonent>();
     }
 
     @Override
