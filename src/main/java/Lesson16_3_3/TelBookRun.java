@@ -39,10 +39,17 @@ public class TelBookRun {
         int randomSearch = random.nextInt(sizeListFriends);
         //случайный абонент для поиска в списках друзей
         Abonent randomAbonent = friendsList.get(randomSearch);
-        for (int x = abonentArr.length - 1;x >= 0; x --){
+        for (int x = abonentArr.length - 1; x >= 0; x --){
             if(abonentArr[x].listFriends.contains(randomAbonent))
                 System.out.println(" в списке друзей абонента " + abonentArr[x] +'\n' + " найден друг " + randomAbonent);
             else System.out.println(" абонент не найден ");
+        }
+        System.out.println(" ищем по Set ###########################");
+        for (Abonent a:abonentSet){
+            boolean setFrL = a.listFriends.contains(randomAbonent);
+            if (setFrL == true){
+                System.out.println(" найден друг " + "\n" + randomAbonent + " у абонента " + a.name);
+            }else System.out.println("!!! Ненайден друг " + "\n" + randomAbonent + " у абонента " + a.name);
         }
     }
 }
