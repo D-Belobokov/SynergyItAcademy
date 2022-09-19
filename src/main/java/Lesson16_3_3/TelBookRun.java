@@ -28,28 +28,64 @@ public class TelBookRun {
         //преобразовываем массив в arrayList
         ArrayList<Abonent> abonentList = new ArrayList<>();
         Collections.addAll(abonentList, abonentArr);
+
         //преобразовываем массив в Set
-        Set<Abonent> abonentSet = Set.of(abonentArr);
+        Set<Abonent> abonentSet = new LinkedHashSet<>(List.of(abonentArr));
+
         //преобразовываем массив в Map
         Map<Integer, Abonent> abonentMap = new HashMap<>();
         for (int m = 0; m < abonentArr.length; m++) {
             abonentMap.put(m, abonentArr[m]);
         }
-        System.out.println("");
         int randomSearch = random.nextInt(sizeListFriends);
         //случайный абонент для поиска в списках друзей
         Abonent randomAbonent = friendsList.get(randomSearch);
-        for (int x = abonentArr.length - 1; x >= 0; x --){
-            if(abonentArr[x].listFriends.contains(randomAbonent))
-                System.out.println(" в списке друзей абонента " + abonentArr[x] +'\n' + " найден друг " + randomAbonent);
-            else System.out.println(" абонент не найден ");
+
+        System.out.println(" ищем по массиву Arr  ###########################");
+        long startTimeArr = System.nanoTime();  //  <- точка начала замера времени выполнения метода
+        for (Abonent a:abonentArr){
+            boolean arrFl = a.listFriends.contains(randomAbonent);
+            if(arrFl){
+                System.out.println(" у абонента (arr) " + a.name + " в списке друзей НАЙДЕН друг " + "\n" + randomAbonent);
+            }else System.out.println( " у абонента(arr) " + a.name + " \n " + " друг отсутствует");
         }
-        System.out.println(" ищем по Set ###########################");
-        for (Abonent a:abonentSet){
-            boolean setFrL = a.listFriends.contains(randomAbonent);
-            if (setFrL == true){
-                System.out.println(" найден друг " + "\n" + randomAbonent + " у абонента " + a.name);
-            }else System.out.println("!!! Ненайден друг " + "\n" + randomAbonent + " у абонента " + a.name);
+        long endTimeArr = System.nanoTime();
+
+        System.out.println(" ищем по списку List ###########################");
+        long startTimeList = System.nanoTime();
+        for (Abonent l:abonentList){
+            boolean lFl = l.listFriends.contains(randomAbonent);
+            if(lFl){
+                System.out.println(" у абонента(list) " + l.name + " в списке друзей НАЙДЕН друг " + "\n" + randomAbonent);
+            }else System.out.println( " у абонента(list) " + l.name + " \n " + " друг отсутствует");
         }
+        long endTimeList = System.nanoTime();
+
+        System.out.println(" ищем по можеству Set ###########################");
+        long startTimeSet = System.nanoTime();
+        for (Abonent s:abonentSet){
+            boolean setFl = s.listFriends.contains(randomAbonent);
+            if (setFl){
+                System.out.println( " у абонента(set) " + s.name + " в списке друзей НАЙДЕН друг " + "\n" + randomAbonent );
+            }else System.out.println( " у абонента(set) " + s.name + " \n " + " друг отсутствует");
+        }
+        long endTimeSet = System.nanoTime();
+
+        long startTimeMap = System.nanoTime();
+        for (Map.Entry m: abonentMap.entrySet()){
+            if(abonentMap.containsValue(randomAbonent)){
+                System.out.println(" у абонента(map) " + m.setValue(randomAbonent) + " в списке друзей НАЙДЕН друг " + "\n" + randomAbonent);
+            }else System.out.println(" у абонента(map) " + m.setValue(randomAbonent) + "\n" + "друг отсутствует ");
+        }
+        long endTimeMap = System.nanoTime();
+
+        long durationArr = (endTimeArr - startTimeArr) / 1000000;
+        long durationList = (endTimeList - startTimeList) / 1000000;
+        long durationSet = (endTimeSet - startTimeSet) / 1000000;
+        long durationMap = (endTimeMap - startTimeMap) / 1000000;
+        System.out.println(" ВРЕМЯ ПОИСКА ПО МАССИВУ = " + durationArr + " ms ");
+        System.out.println(" ВРЕМЯ ПОИСКА ПО LIST = " + durationList + " ms ");
+        System.out.println(" ВРЕМЯ ПОИСКА ПО SET = " + durationSet + " ms ");
+        System.out.println(" ВРЕМЯ ПОИСКА ПО MAP = " + durationMap + " ms ");
     }
 }
