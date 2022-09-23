@@ -3,10 +3,7 @@ package Lesson18_3_5;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class StreamApiRunner {
@@ -30,13 +27,20 @@ public class StreamApiRunner {
         // получаем string(из прочитанного файла)
         Path path = Path.of(fileInput);
         String textInput = String.valueOf(Files.readAllLines(path));
-        String textForModify = textInput.replaceAll("[\\.\\,]","");
-
-        //System.out.println(textInput);
-        String[]textArr = textForModify.split(" ");
-        Stream streamArr = Arrays.stream(textArr);
-        streamArr.forEach(System.out::println);
-        Map<Integer,String>mapText = new TreeMap<>();
+        // убираем из текста знаки припинания
+        String textModify = textInput.replaceAll("\\pP","");
+        /* загружаем текст в мапу, используя пробел как разделитель(метод regex)
+           здесь ключ это string(слово из текста), при его повторении плюсуется значение Integer
+         */
+        Map<String,Integer>textMap = new TreeMap<>();
+        for (String s : textModify.split(" ")){
+            textMap.put(s,textMap.getOrDefault(s,0) + 1);
+        }
+        textMap.remove("");
+        // сортируем мапу
+        textMap.entrySet().stream()
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .forEach(System.out::println);
 
     }
 }
