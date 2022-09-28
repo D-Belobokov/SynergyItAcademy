@@ -4,7 +4,6 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
-import java.util.stream.Stream;
 
 public class StreamApiRunner {
     public static void main(String[] args) throws IOException {
@@ -20,7 +19,7 @@ public class StreamApiRunner {
             }
             bufferedInputStream.close();
             System.out.println("\n" + "**************************************");
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
             System.out.println(" файл не найден ");
         }
@@ -28,19 +27,22 @@ public class StreamApiRunner {
         Path path = Path.of(fileInput);
         String textInput = String.valueOf(Files.readAllLines(path));
         // убираем из текста знаки припинания
-        String textModify = textInput.replaceAll("\\pP","");
+        String textModify = textInput.replaceAll("\\pP", "");
         /* загружаем текст в мапу, используя пробел как разделитель(метод regex)
            здесь ключ это string(слово из текста), при его повторении плюсуется значение Integer
          */
-        Map<String,Integer>textMap = new TreeMap<>();
-        for (String s : textModify.split(" ")){
-            textMap.put(s,textMap.getOrDefault(s,0) + 1);
+        Map<String, Integer> textMap = new TreeMap<>();
+        for (String s : textModify.split(" ")) {
+            textMap.put(s, textMap.getOrDefault(s, 0) + 1);
         }
+        // удаляем пробелы в качестве ключа
         textMap.remove("");
+        System.out.println(" * вывод количества слов в тексте * ");
         // сортируем мапу
         textMap.entrySet().stream()
                 .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
                 .forEach(System.out::println);
+
 
     }
 }
