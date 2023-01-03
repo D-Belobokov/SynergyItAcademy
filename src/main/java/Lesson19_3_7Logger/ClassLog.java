@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 public class ClassLog extends Thread {
     private final String name;
     private static final Logger loggerClassLog = Logger.getLogger(ClassLog.class.getName());
-
     @Override
     public void run() {
 
